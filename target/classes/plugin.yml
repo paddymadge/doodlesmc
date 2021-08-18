@@ -1,0 +1,32 @@
+# https://bukkit.gamepedia.com/Plugin_YAML
+
+name: DoodlesMC
+version: 1.0
+api-version: 1.17
+description: DoodlesMC Custom Plugin
+authors: [Paddymadge]
+
+main: doodlesmc.Main
+
+commands:
+  invsee:
+    description: See the inventory of other players.
+    aliases: [einvsee]
+  echestsee:
+      description: See the enderchest of other players.
+      aliases: [ echest ]
+  sd:
+    description: See the shopping district coordinates.
+    aliases: [ shoppingdistrict, sdcoords ]
+  afk:
+      description: Changes your afk-mode.
+      aliases: [  ]
+  disableplugin:
+      description: Disables the plugin.
+      aliases: [ ]
+
+
+permissions:
+  doodlesmc.*:
+    default: op
+    description: Give players with op everything by default

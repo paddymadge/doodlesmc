@@ -1,2 +1,0 @@
-# doodlesmc
-DoodlesMC custom plugin
