@@ -16,6 +16,9 @@ public class Main extends JavaPlugin {
         getCommand("afk").setExecutor(new afkcommand());
         getCommand("sd").setExecutor(new sdcommand());
         getCommand("disableplugin").setExecutor(new disableplugincommand(this));
+        getCommand("color").setExecutor(new colorcommand());
+        getCommand("teamchangecommand").setExecutor(new teamchangecommand());
+
 
         calciterecipe calcite = new calciterecipe(this);
         sporeblossomrecipe sporeblossom = new sporeblossomrecipe(this);

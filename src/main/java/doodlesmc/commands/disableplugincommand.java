@@ -16,15 +16,24 @@ public class disableplugincommand implements CommandExecutor {
     }
 
     @Override
-        public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-            Player p = (Player) sender;
-            if (!(p.hasPermission("doodlesmc.others"))) {
-                p.sendMessage(ChatColor.RED + "You dont have the permissions to run this command!");
-                return false;
-            } else {
-                p.sendMessage(ChatColor.RED + "Plugin disabled succesfully!");
-                this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
-                return true;
-            }
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Player p = (Player) sender;
+
+        if (!(p.hasPermission("doodlesmc.others"))) {
+            p.sendMessage(ChatColor.RED + "You dont have the permissions to run this command!");
+            return false;
         }
+        if (args.length <= 0) {
+            p.sendMessage(ChatColor.RED + "Are you sure you want to disable the whole plugin? " +
+                    "If you are sure type: " + ChatColor.YELLOW + "/disableplugin confirm" + ChatColor.RED + " this will disable the WHOLE plugin.");
+            return true;
+        }
+        if (args[0].contains("confirm")) {
+            p.sendMessage(ChatColor.RED + "Plugin disabled succesfully!");
+            this.plugin.getServer().getPluginManager().disablePlugin(this.plugin);
+            return true;
+        }
+
+        return true;
+    }
 }

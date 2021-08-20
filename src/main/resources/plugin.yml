@@ -1,7 +1,7 @@
 # https://bukkit.gamepedia.com/Plugin_YAML
 
 name: DoodlesMC
-version: 1.0
+version: 2.0
 api-version: 1.17
 description: DoodlesMC Custom Plugin
 authors: [Paddymadge]
@@ -24,6 +24,11 @@ commands:
   disableplugin:
       description: Disables the plugin.
       aliases: [ ]
+  color:
+      description: Change your name color.
+      aliases: [ namecolor ]
+  teamchangecommand:
+      description: Enables the ability of the color command.
 
 
 permissions:
