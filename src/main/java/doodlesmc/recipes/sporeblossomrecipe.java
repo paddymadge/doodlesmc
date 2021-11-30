@@ -4,18 +4,14 @@ import doodlesmc.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class sporeblossomrecipe {
+public class SporeblossomRecipe implements RecipeBuilder {
 
-    public Main plugin;
+    private final Recipe recipe;
 
-    public sporeblossomrecipe(Main plugin) {
-        this.plugin = plugin;
-        sporeblossomRecipe1();
-    }
-
-    private void sporeblossomRecipe1() {
+    public SporeblossomRecipe(Main plugin) {
         ItemStack sporeblossom = new ItemStack(Material.SPORE_BLOSSOM, 1);
         NamespacedKey nsKey = new NamespacedKey(plugin, "sporeblossom");
         ShapedRecipe recipe = new ShapedRecipe(nsKey, sporeblossom);
@@ -23,6 +19,11 @@ public class sporeblossomrecipe {
         recipe.shape(" D ", "DAD", " D ");
         recipe.setIngredient('D', Material.BIG_DRIPLEAF);
         recipe.setIngredient('A', Material.ALLIUM);
-        plugin.getServer().addRecipe(recipe);
+        this.recipe = recipe;
+    }
+
+    @Override
+    public Recipe getRecipe() {
+        return this.recipe;
     }
 }

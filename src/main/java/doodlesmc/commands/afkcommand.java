@@ -1,5 +1,6 @@
 package doodlesmc.commands;
 
+import doodlesmc.utils.CooldownManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,25 +8,26 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
+import java.util.UUID;
 
-public class afkcommand implements CommandExecutor {
-    private static Logger logger;
-    private HashMap<String, Long> cooldown = new HashMap<String, Long>();
+public class AfkCommand implements CommandExecutor {
+    private final CooldownManager cooldownManager;
+
+    public AfkCommand() {
+        cooldownManager = new CooldownManager(15 * 1000);
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = (Player) sender;
 
-        if (cooldown.containsKey(p.getName())) {
-            if (cooldown.get(p.getName()) > System.currentTimeMillis()) {
-            long timeleft = (cooldown.get(p.getName()) - System.currentTimeMillis()) / 1000;
-                p.sendMessage(ChatColor.RED + "You can use this command again in " + ChatColor.YELLOW + timeleft + " seconds" + ChatColor.RED + "!");
-                return false;
-            }
+        long cooldownTime = this.cooldownManager.getCooldownTime(p.getUniqueId());
+        if (cooldownTime > 0) {
+            p.sendMessage(ChatColor.RED + "You can use this command again in " + ChatColor.YELLOW + (cooldownTime / 1000) + " seconds" + ChatColor.RED + "!");
+            return true;
         }
 
-        cooldown.put(p.getName(), System.currentTimeMillis() + (15 * 1000));
+        this.cooldownManager.start(p.getUniqueId());
 
         if (args.length > 0) {
             p.sendMessage(ChatColor.RED + "Wrong usage: /afk");
