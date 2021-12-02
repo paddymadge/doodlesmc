@@ -20,6 +20,6 @@ public class CooldownManager {
     }
 
     public void start(UUID uuid) {
-        this.cooldownRegistry.put(uuid, System.currentTimeMillis() + (cooldownLength * 1000L));
+        this.cooldownRegistry.put(uuid, System.currentTimeMillis() + cooldownLength);
     }
 }
