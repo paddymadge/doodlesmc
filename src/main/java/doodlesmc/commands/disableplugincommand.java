@@ -7,11 +7,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class disableplugincommand implements CommandExecutor {
+public class DisablePluginCommand implements CommandExecutor {
 
-    private Main plugin;
+    private final Main plugin;
 
-    public disableplugincommand(Main plugin) {
+    public DisablePluginCommand(Main plugin) {
         this.plugin = plugin;
     }
 
@@ -23,7 +23,7 @@ public class disableplugincommand implements CommandExecutor {
             p.sendMessage(ChatColor.RED + "You dont have the permissions to run this command!");
             return false;
         }
-        if (args.length <= 0) {
+        if (args.length == 0) {
             p.sendMessage(ChatColor.RED + "Are you sure you want to disable the whole plugin? " +
                     "If you are sure type: " + ChatColor.YELLOW + "/disableplugin confirm" + ChatColor.RED + " this will disable the WHOLE plugin.");
             return true;

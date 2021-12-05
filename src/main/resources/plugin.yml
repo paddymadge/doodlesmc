@@ -4,31 +4,33 @@ name: DoodlesMC
 version: 2.0
 api-version: 1.17
 description: DoodlesMC Custom Plugin
-authors: [Paddymadge]
+authors: [ Paddymadge, Tommylans ]
 
 main: doodlesmc.Main
 
 commands:
   invsee:
     description: See the inventory of other players.
-    aliases: [einvsee]
+    aliases: [ einvsee ]
   echestsee:
-      description: See the enderchest of other players.
-      aliases: [ echest ]
+    description: See the enderchest of other players.
+    aliases: [ echest ]
   sd:
     description: See the shopping district coordinates.
     aliases: [ shoppingdistrict, sdcoords ]
   afk:
-      description: Changes your afk-mode.
-      aliases: [  ]
+    description: Changes your afk-mode.
+    aliases: [ ]
   disableplugin:
-      description: Disables the plugin.
-      aliases: [ ]
+    description: Disables the plugin.
+    aliases: [ ]
   color:
-      description: Change your name color.
-      aliases: [ namecolor ]
+    description: Change your name color.
+    aliases: [ namecolor ]
   teamchangecommand:
-      description: Enables the ability of the color command.
+    description: Enables the ability of the color command.
+  mem:
+    description: See server metrics
 
 
 permissions:

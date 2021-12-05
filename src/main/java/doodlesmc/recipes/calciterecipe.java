@@ -4,28 +4,27 @@ import doodlesmc.Main;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
-public class calciterecipe {
+public class CalciteRecipe implements RecipeBuilder {
 
-    private Main plugin;
+    private final Recipe recipe;
 
-    public calciterecipe(Main plugin) {
-        this.plugin = plugin;
-        calciteRecipe0();
-    }
-
-    private void calciteRecipe0() {
+    public CalciteRecipe(Main plugin) {
         ItemStack calcite = new ItemStack(Material.CALCITE, 2);
-        NamespacedKey nsKey = new NamespacedKey(this.plugin, "calcite");
+        NamespacedKey nsKey = new NamespacedKey(plugin, "calcite");
         ShapelessRecipe recipe = new ShapelessRecipe(nsKey, calcite);
 
         recipe.addIngredient(1, Material.BONE_BLOCK);
         recipe.addIngredient(1, Material.DIORITE);
 
-        this.plugin.getServer().addRecipe(recipe);
+        this.recipe = recipe;
     }
 
-
+    @Override
+    public Recipe getRecipe() {
+        return recipe;
+    }
 }
 

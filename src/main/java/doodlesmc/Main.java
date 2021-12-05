@@ -6,22 +6,28 @@ import doodlesmc.recipes.*;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
 
-        getCommand("invsee").setExecutor(new invseecommand());
-        getCommand("echestsee").setExecutor(new echestseecommand());
-        getCommand("afk").setExecutor(new afkcommand());
-        getCommand("sd").setExecutor(new sdcommand());
-        getCommand("disableplugin").setExecutor(new disableplugincommand(this));
-        getCommand("color").setExecutor(new colorcommand());
-        getCommand("teamchangecommand").setExecutor(new teamchangecommand());
+        getCommand("invsee").setExecutor(new InvSeeCommand());
+        getCommand("echestsee").setExecutor(new EnderChestSeeCommand());
+        getCommand("afk").setExecutor(new AfkCommand());
+        getCommand("sd").setExecutor(new SdCommand());
+        getCommand("disableplugin").setExecutor(new DisablePluginCommand(this));
+        getCommand("color").setExecutor(new ColorCommand());
+        getCommand("teamchangecommand").setExecutor(new TeamChangeCommand());
+        getCommand("mem").setExecutor(new MemCommand());
 
 
-        calciterecipe calcite = new calciterecipe(this);
-        sporeblossomrecipe sporeblossom = new sporeblossomrecipe(this);
+        List<RecipeBuilder> recipes = new ArrayList<>();
+        recipes.add(new CalciteRecipe(this));
+        recipes.add(new SporeblossomRecipe(this));
+        recipes.forEach(recipeBuilder -> this.getServer().addRecipe(recipeBuilder.getRecipe()));
 
         getLogger().info("[DoodlesMC] DoodlesMC plugin has been enabled!");
     }

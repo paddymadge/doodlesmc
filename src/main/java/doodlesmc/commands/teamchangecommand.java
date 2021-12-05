@@ -1,5 +1,6 @@
 package doodlesmc.commands;
 
+import doodlesmc.utils.CooldownManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -7,28 +8,28 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+public class TeamChangeCommand implements CommandExecutor {
+    private final CooldownManager cooldownManager;
 
-public class teamchangecommand implements CommandExecutor {
-    private HashMap<String, Long> cooldown = new HashMap<String, Long>();
+    public TeamChangeCommand() {
+        cooldownManager = new CooldownManager(30 * 1000);
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player p = (Player) sender;
-
-        if (!(sender instanceof Player)) {
+        if (!(sender instanceof Player) || args.length == 0) {
             return false;
         }
 
-        if (cooldown.containsKey(p.getName())) {
-            if (cooldown.get(p.getName()) > System.currentTimeMillis()) {
-                long timeleft = (cooldown.get(p.getName()) - System.currentTimeMillis()) / 1000;
-                p.sendMessage(ChatColor.RED + "You can change your color again in " + ChatColor.YELLOW + timeleft + " seconds" + ChatColor.RED + "!");
-                return false;
-            }
+        Player p = (Player) sender;
+
+        long cooldownTime = cooldownManager.getCooldownTime(p.getUniqueId());
+        if (cooldownTime > 0) {
+            p.sendMessage(ChatColor.RED + "You can change your color again in " + ChatColor.YELLOW + (cooldownTime / 1000) + " seconds" + ChatColor.RED + "!");
+            return true;
         }
 
-        cooldown.put(p.getName(), System.currentTimeMillis() + (30 * 1000));
+        cooldownManager.start(p.getUniqueId());
 
         if (args[0].contains("darkgreen")) {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "team join darkgreen " + p.getName());
